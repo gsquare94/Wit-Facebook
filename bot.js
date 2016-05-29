@@ -73,24 +73,22 @@ const actions = {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     //context.forecast = 'sunny';
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', "http://www.omdbapi.com/?t="+context.mov+"&y=&plot=full&r=json", true);
-    xhr.send();
+    var request = require('request');
+    request('http://www.omdbapi.com/?t='+context.mov+'&y=&plot=short&r=json', function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        //console.log(body) // Show the HTML for the Google homepage.
+        var response = JSON.parse(body);
+        if(response.Response == "False"){
+          context.output = "I don't think that's a movie";
+        }
+        else{
+          context.output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
+        }
+        //console.log(context.output)
+        cb(context);
+      }
+    })
 
-    xhr.onreadystatechange = processRequest;
-
-    function processRequest(e) {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-         var response = JSON.parse(xhr.responseText);
-         if(response.Response == "False"){
-           context.output = "I don't think that's a movie ;)";
-         }
-         else{
-           context.output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
-         }
-     }
-    }
-    cb(context);
   },
 };
 
