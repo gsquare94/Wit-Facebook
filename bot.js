@@ -56,9 +56,9 @@ const actions = {
   },
   merge(sessionId, context, entities, message, cb) {
     // Retrieve the location entity and store it into a context field
-    const loc = firstEntityValue(entities, 'location');
-    if (loc) {
-      context.loc = loc; // store it in context
+    const mov = firstEntityValue(entities, 'local_search_query');
+    if (mov) {
+      context.mov = mov; // store it in context
     }
 
     cb(context);
@@ -69,10 +69,27 @@ const actions = {
   },
 
   // fetch-weather bot executes
-  ['fetch-weather'](sessionId, context, cb) {
+  ['search-movie'](sessionId, context, cb) {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
-    context.forecast = 'sunny';
+    //context.forecast = 'sunny';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', "http://www.omdbapi.com/?t="+context.mov+"&y=&plot=full&r=json", true);
+    xhr.send();
+
+    xhr.onreadystatechange = processRequest;
+
+    function processRequest(e) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+         var response = JSON.parse(xhr.responseText);
+         if(response.Response == "False"){
+           context.output = "I don't think that's a movie ;)";
+         }
+         else{
+           context.output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
+         }
+     }
+    }
     cb(context);
   },
 };
