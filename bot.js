@@ -58,7 +58,7 @@ const actions = {
     // Retrieve the location entity and store it into a context field
     const mov = firstEntityValue(entities, 'local_search_query');
     if (mov) {
-      context.mov = mov; // store it in context
+      context.mov = mov.split(' ').join('+'); // store it in context
     }
 
     cb(context);
