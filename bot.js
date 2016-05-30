@@ -59,6 +59,8 @@ const actions = {
     const mov = firstEntityValue(entities, 'local_search_query');
     if (mov) {
       context.mov = mov.split(' ').join('+'); // store it in context
+      console.log(context.mov)
+
     }
 
     cb(context);
@@ -76,15 +78,20 @@ const actions = {
     var request = require('request');
     request('http://www.omdbapi.com/?t='+context.mov+'&y=&plot=short&r=json', function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        //console.log(body) // Show the HTML for the Google homepage.
+        console.log(body) // Show the HTML for the Google homepage.
         var response = JSON.parse(body);
         if(response.Response == "False"){
           context.output = "I don't think that's a movie";
         }
         else{
-          context.output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
+          var output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
+          if(output.length>320){
+            output = output.substring(0,320);
+            output = output.substring(0,output.lastIndexOf(".")+1);
+          }
+          context.output = output;
         }
-        //console.log(context.output)
+        console.log(context.output)
         cb(context);
       }
     })
