@@ -89,6 +89,9 @@ const actions = {
             output = output.substring(0,320);
             output = output.substring(0,output.lastIndexOf(".")+1);
           }
+          if ((response.Title).indexOf(context.mov) == -1) {
+            output = "I couldn't find your movie, but I found this:\n" + output;
+          }
           context.output = output;
         }
         console.log(context.output)
