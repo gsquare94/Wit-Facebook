@@ -84,8 +84,9 @@ const actions = {
           context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg";
         }
         else{
-          var curr_movie = JSON.parse(response.results[0])
-          var partial_poster_path = curr_movie.poster_path
+          var curr_res = response.results;
+          var curr_movie = JSON.parse(curr_res[0]);
+          var partial_poster_path = curr_movie.poster_path;
           var poster_path = 'http://image.tmdb.org/t/p/w500/'+partial_poster_path.substring(2,partial_poster_path.length);
 
           var output = curr_movie.title+"(Rating:  "+curr_movie.vote_average+")##"+curr_movie.overview+"##"+poster_path;
