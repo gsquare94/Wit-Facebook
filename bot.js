@@ -58,7 +58,7 @@ const actions = {
     // Retrieve the location entity and store it into a context field
     const mov = firstEntityValue(entities, 'local_search_query');
     if (mov) {
-      context.mov = mov.split(' ').join('+'); // store it in context
+      context.mov = encodeURI(mov); // store it in context
       console.log(context.mov)
 
     }
@@ -80,20 +80,18 @@ const actions = {
       if (!error && response.statusCode == 200) {
         console.log(body) // Show the HTML for the Google homepage.
         var response = JSON.parse(body);
+        // console.log(response);
         if(response.total_results == 0){
           context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg";
         }
         else{
-          var curr_res = response.results;
-          var curr_movie = JSON.parse(curr_res[0]);
-          var partial_poster_path = curr_movie.poster_path;
-          var poster_path = 'http://image.tmdb.org/t/p/w500/'+partial_poster_path.substring(2,partial_poster_path.length);
+          var poster_path = 'http://image.tmdb.org/t/p/w500/'+response.results[0].poster_path.substring(1);
 
-          var output = curr_movie.title+"(Rating:  "+curr_movie.vote_average+")##"+curr_movie.overview+"##"+poster_path;
-          if(output.length>320){
-            output = output.substring(0,320);
-            output = output.substring(0,output.lastIndexOf(".")+1);
-          }
+          var output = response.results[0].title+"(Rating:  "+response.results[0].vote_average+")##"+response.results[0].overview+"##"+poster_path;
+          // if(output.length>320){
+          //   output = output.substring(0,320);
+          //   output = output.substring(0,output.lastIndexOf(".")+1);
+          // }
           // if ((response.Title).indexOf(context.mov) == -1) {
           //   output = "I couldn't find your movie, but I found this:\n" + output;
           // }
