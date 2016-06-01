@@ -81,17 +81,17 @@ const actions = {
         console.log(body) // Show the HTML for the Google homepage.
         var response = JSON.parse(body);
         if(response.Response == "False"){
-          context.output = "I don't think that's a movie";
+          context.output = "I don't think that's a movie##Couldn't find movie";
         }
         else{
-          var output = response.Title+" released on "+response.Released+".\nIMDB Rating: "+response.imdbRating+"\nPlot: "+response.Plot;
+          var output = response.Title+"(IMDB: "+response.imdbRating+")##"+response.Plot;
           if(output.length>320){
             output = output.substring(0,320);
             output = output.substring(0,output.lastIndexOf(".")+1);
           }
-          if ((response.Title).indexOf(context.mov) == -1) {
-            output = "I couldn't find your movie, but I found this:\n" + output;
-          }
+          // if ((response.Title).indexOf(context.mov) == -1) {
+          //   output = "I couldn't find your movie, but I found this:\n" + output;
+          // }
           context.output = output;
         }
         console.log(context.output)

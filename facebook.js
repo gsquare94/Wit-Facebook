@@ -31,9 +31,9 @@ const fbMessage = (recipientId, msg, cb) => {
             template_type:"generic",
             elements:[
               {
-                title:"Classic White T-Shirt",
+                title:msg.substring(0,msg.indexOf("##")),
                 image_url:"http://image.tmdb.org/t/p/w500/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
-                subtitle:msg,
+                subtitle:msg.substring(msg.indexOf("##")+2,msg.length),
               }
             ]
           }
