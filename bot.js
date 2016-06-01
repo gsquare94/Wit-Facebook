@@ -76,15 +76,19 @@ const actions = {
     // context.forecast = apiCall(context.loc)
     //context.forecast = 'sunny';
     var request = require('request');
-    request('http://www.omdbapi.com/?t='+context.mov+'&y=&plot=short&r=json', function (error, response, body) {
+    request('http://api.themoviedb.org/3/search/movie?query='+context.mov+'&page=1&api_key=939d130ce66c95a66c6328c662e518d0', function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body) // Show the HTML for the Google homepage.
         var response = JSON.parse(body);
-        if(response.Response == "False"){
-          context.output = "I don't think that's a movie##Couldn't find movie";
+        if(response.total_results == 0){
+          context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg";
         }
         else{
-          var output = response.Title+"(IMDB: "+response.imdbRating+")##"+response.Plot;
+          var curr_movie = JSON.parse(response.results[0])
+          var partial_poster_path = curr_movie.poster_path
+          var poster_path = 'http://image.tmdb.org/t/p/w500/'+partial_poster_path.substring(2,partial_poster_path.length);
+
+          var output = curr_movie.title+"(Rating:  "+curr_movie.vote_average+")##"+curr_movie.overview+"##"+poster_path;
           if(output.length>320){
             output = output.substring(0,320);
             output = output.substring(0,output.lastIndexOf(".")+1);

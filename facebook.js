@@ -32,7 +32,7 @@ const fbMessage = (recipientId, msg, cb) => {
             elements:[
               {
                 title:msg.substring(0,msg.indexOf("##")),
-                image_url:"http://image.tmdb.org/t/p/w500/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
+                image_url:msg.substring(msg.lastIndexOf("##")+2,msg.length),
                 subtitle:msg.substring(msg.indexOf("##")+2,msg.length),
               }
             ]
