@@ -85,8 +85,13 @@ const actions = {
           context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg";
         }
         else{
-          var poster_path = 'http://image.tmdb.org/t/p/w500/'+response.results[0].poster_path.substring(1);
-
+          var partial_poster_path = response.results[0].poster_path;
+          if(partial_poster_path){
+            var poster_path = 'http://image.tmdb.org/t/p/w500/'+response.results[0].poster_path.substring(1);
+          }
+          else {
+            var poster_path = 'http://www.filmfodder.com/reviews/images/poster-not-available.jpg';
+          }
           var output = response.results[0].title+"(Rating:  "+response.results[0].vote_average+")##"+response.results[0].overview+"##"+poster_path;
           // if(output.length>320){
           //   output = output.substring(0,320);
