@@ -21,13 +21,25 @@ const fbReq = request.defaults({
 const fbMessage = (recipientId, msg, cb) => {
   const opts = {
     form: {
-      recipient: {
-        id: recipientId,
+      recipient:{
+        id:recipientId,
       },
-      message: {
-        text: msg,
-      },
-    },
+      message:{
+        attachment:{
+          type:template,
+          payload:{
+            template_type:generic,
+            elements:[
+              {
+                title:"Classic White T-Shirt",
+                image_url:"http://image.tmdb.org/t/p/w92/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
+                subtitle:"Soft white cotton t-shirt is back in style",
+              }
+            ]
+          }
+        }
+      }
+    }
   };
 
   fbReq(opts, (err, resp, data) => {
