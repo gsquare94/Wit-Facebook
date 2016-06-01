@@ -32,7 +32,7 @@ const fbMessage = (recipientId, msg, cb) => {
             elements:[
               {
                 title:"Classic White T-Shirt",
-                image_url:"http://image.tmdb.org/t/p/w92/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
+                image_url:"http://image.tmdb.org/t/p/w500/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
                 subtitle:"Soft white cotton t-shirt is back in style",
               }
             ]
