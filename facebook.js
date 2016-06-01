@@ -33,7 +33,7 @@ const fbMessage = (recipientId, msg, cb) => {
               {
                 title:msg.substring(0,msg.indexOf("##")),
                 image_url:msg.substring(msg.lastIndexOf("##")+2,msg.length),
-                description:msg.substring(msg.indexOf("##")+2,msg.lastIndexOf("##")),
+                subtitle:msg.substring(msg.indexOf("##")+2,msg.lastIndexOf("##")),
               }
             ]
           }
