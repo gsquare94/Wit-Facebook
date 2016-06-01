@@ -33,7 +33,7 @@ const fbMessage = (recipientId, msg, cb) => {
               {
                 title:"Classic White T-Shirt",
                 image_url:"http://image.tmdb.org/t/p/w500/AoGpqw4S4ZGgwhlM3FgzFVwyIGl.jpg",
-                subtitle:"Soft white cotton t-shirt is back in style",
+                subtitle:msg,
               }
             ]
           }
