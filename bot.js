@@ -82,7 +82,7 @@ const actions = {
         var response = JSON.parse(body);
         // console.log(response);
         if(response.total_results == 0){
-          context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg";
+          context.output = "I don't think that's a movie##Couldn't find movie##http://www.designsnext.com/wp-content/uploads/2014/12/Oops-vector-smiley.jpg@@https://www.themoviedb.org/movie/";
         }
         else{
           var partial_poster_path = response.results[0].poster_path;
@@ -92,7 +92,7 @@ const actions = {
           else {
             var poster_path = 'http://www.filmfodder.com/reviews/images/poster-not-available.jpg';
           }
-          var output = response.results[0].title+"(Rating:  "+response.results[0].vote_average+")##"+response.results[0].overview+"##"+poster_path;
+          var output = response.results[0].title+"(Rating:  "+response.results[0].vote_average+")##"+response.results[0].overview+"##"+poster_path+"@@"+response.results[0].id;
           // if(output.length>320){
           //   output = output.substring(0,320);
           //   output = output.substring(0,output.lastIndexOf(".")+1);

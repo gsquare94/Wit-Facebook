@@ -32,8 +32,15 @@ const fbMessage = (recipientId, msg, cb) => {
             elements:[
               {
                 title:msg.substring(0,msg.indexOf("##")),
-                image_url:msg.substring(msg.lastIndexOf("##")+2,msg.length),
+                image_url:msg.substring(msg.lastIndexOf("##")+2,msg.indexOf('@@')),
                 subtitle:msg.substring(msg.indexOf("##")+2,msg.lastIndexOf("##")),
+                buttons:[
+                  {
+                    type:"web_url",
+                    url:"https://www.themoviedb.org/movie/"+msg.substring(msg.indexOf("@@")+2),
+                    title:"Details",
+                  },
+                ]
               }
             ]
           }
