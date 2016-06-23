@@ -59,7 +59,7 @@ const actions = {
     const mov = firstEntityValue(entities, 'local_search_query');
     if (mov) {
       context.mov = encodeURI(mov); // store it in context
-      console.log(context.mov)
+      // console.log(context.mov)
 
     }
 
@@ -71,7 +71,7 @@ const actions = {
   },
 
   // fetch-weather bot executes
-  ['search-movie'](sessionId, context, cb) {
+  ['find-movie'](sessionId, context, cb) {
     // Here should go the api call, e.g.:
     // context.forecast = apiCall(context.loc)
     //context.forecast = 'sunny';

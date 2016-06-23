@@ -122,7 +122,7 @@ app.post('/webhook', (req, res) => {
             // This depends heavily on the business logic of your bot.
             // Example:
             // if (context['done']) {
-            //   delete sessions[sessionId];
+            //  delete sessions[sessionId];
             // }
 
             // Updating the user's current session state
